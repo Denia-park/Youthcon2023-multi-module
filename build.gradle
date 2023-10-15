@@ -1,6 +1,8 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.14'
+    //root모듈 에서 build시 bootJar가 없다고 예외가 뜨기 때문에 해당 예외를 제거하기 위해 false 설정
+    //플러그인을 준비만 하고, root모듈 에서는 사용하지 않음
+    id 'org.springframework.boot' version '2.7.14' apply(false)
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -24,6 +26,20 @@ subprojects {
     apply { plugin('org.springframework.boot') }
     //Spring boot에서 의존성 버전 관리를 세팅
     apply { plugin('io.spring.dependency-management') }
+
+    //Application을 실행한 api 모듈에서만 bootJar가 필요하고, 나머지 모듈에서는 bootJar가 필요하지않음
+    //bootJar : 일반적인 Jar랑 다르게 Spring에서만 제공해주는 Jar, 기본적으로 Gradle에서는 bootJar의 설정이 기본으로 True
+    //Spring 의존성이 없는 Core 모듈에서는 bootJar를 찾지 못해서 에러가 난다.
+
+    //bootJar 설정을 다 끈다.
+    tasks.named('bootJar'){
+        enabled = false
+    }
+
+    //Jar 설정을 킨다
+    tasks.named('jar'){
+        enabled = true
+    }
 
     tasks.named('test') {
         useJUnitPlatform()
