@@ -32,8 +32,15 @@ subprojects {
     //Spring 의존성이 없는 Core 모듈에서는 bootJar를 찾지 못해서 에러가 난다.
 
     //bootJar 설정을 다 끈다.
-    tasks.named('bootJar'){
-        enabled = false
+//    tasks.named('bootJar'){
+//        enabled = false
+//    }
+
+    //특정 모듈만 끄고, 나머지는 켠다
+    if (project.name == 'core') {
+        tasks.named('bootJar') {
+            enabled = false
+        }
     }
 
     //Jar 설정을 킨다
