@@ -1,4 +1,4 @@
-package hello.module.presentation;
+package hello.api.presentation;
 
 import hello.module.application.MemberService;
 import org.springframework.stereotype.Controller;

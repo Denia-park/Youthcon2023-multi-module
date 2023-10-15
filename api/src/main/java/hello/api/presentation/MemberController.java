@@ -1,4 +1,4 @@
-package hello.module.presentation;
+package hello.api.presentation;
 
 import hello.module.application.MemberService;
 import hello.module.domain.Member;
